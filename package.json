@@ -2,7 +2,6 @@
   "name": "location-love-surprise",
   "version": "1.0.0",
   "description": "Cute romantic surprise & love distance web app",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },

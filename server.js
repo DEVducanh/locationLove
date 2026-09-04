@@ -94,6 +94,10 @@ app.get('/api/logs', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`💖 Love Location Server running on http://localhost:${PORT}`);
-});
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`💖 Love Location Server running on http://localhost:${PORT}`);
+  });
+}
