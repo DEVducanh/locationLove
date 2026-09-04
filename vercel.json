@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/location",
-      "destination": "/api/location.js"
-    }
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "styles.css", "use": "@vercel/static" },
+    { "src": "app.js", "use": "@vercel/static" },
+    { "src": "api/location.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/location", "dest": "/api/location.js" },
+    { "src": "/styles.css", "dest": "/styles.css" },
+    { "src": "/app.js", "dest": "/app.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

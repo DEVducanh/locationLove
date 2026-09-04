@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3030;
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+// Root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 const LOG_FILE = path.join(__dirname, 'location_logs.json');
 
 // API endpoint to receive location from client
