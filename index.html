@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Món Quà Tình Yêu Bí Mật 💕</title>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Leaflet CSS for Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Floating Hearts -->
+  <div class="floating-hearts" id="floating-hearts"></div>
+
+  <!-- 🔒 LOCK SCREEN (Shown initially) -->
+  <div id="lock-screen" class="lock-screen">
+    <div class="lock-card">
+      <div class="gift-box-icon">
+        <i class="fa-solid fa-gift pulse-anim"></i>
+        <span class="heart-badge"><i class="fa-solid fa-heart"></i></span>
+      </div>
+      
+      <h2>Món Quà Bí Mật Dành Cho Em 💕</h2>
+      <p class="lock-subtitle">
+        Anh có một bất ngờ và lời nhắn chân thành muốn gửi đến em. Hãy nhấn vào nút bên dưới để mở khóa bức thư bí mật này nhé! 💕
+      </p>
+
+      <button id="btn-unlock" class="btn-cute btn-primary-cute">
+        <i class="fa-solid fa-key"></i> Mở Khóa Món Quà Bí Mật 🎁
+      </button>
+
+      <!-- Permission Denied Warning Container (Hidden by default) -->
+      <div id="denied-warning" class="denied-warning hidden">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p id="warning-text">
+          Ôi! Em cần cho phép vị trí để mở khóa món quà bí mật này nhé! 🔒💕
+        </p>
+        <button id="btn-retry" class="btn-cute btn-secondary-cute">
+          <i class="fa-solid fa-rotate-right"></i> Thử Lại Ngay
+        </button>
+      </div>
+
+      <div class="security-note">
+        <i class="fa-solid fa-shield-cat"></i> Món quà yêu thương được bảo mật dành riêng cho bạn
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 💖 SECRET UNLOCKED CONTENT (Hidden until permission granted) -->
+  <main id="secret-content" class="secret-content hidden">
+
+    <!-- Header Section -->
+    <header class="romantic-header">
+      <div class="header-badge"><i class="fa-solid fa-heart"></i> Long Distance Love</div>
+      <h1>Khoảng Cách Tình Yêu 💕</h1>
+      <p class="header-subtitle">Dù xa xôi đến đâu, trái tim anh vẫn luôn ở bên em</p>
+    </header>
+
+    <!-- Typewriter Love Letter Card -->
+    <section class="card letter-card">
+      <div class="card-header">
+        <i class="fa-solid fa-envelope-open-text icon-romantic"></i>
+        <h3>Bức Thư Tình Gửi Em... 💌</h3>
+      </div>
+      <div class="letter-body">
+        <p id="typewriter-text"></p>
+        <span class="cursor">|</span>
+      </div>
+    </section>
+
+    <!-- Love Distance & Location Banner -->
+    <section class="card distance-card">
+      <div class="distance-badge-container">
+        <div class="location-pill lover-pill">
+          <i class="fa-solid fa-heart-pulse"></i> Em đang ở: <span id="lover-city">Đang xác định...</span>
+        </div>
+        <div class="distance-value-container">
+          <span id="distance-number">---</span>
+          <span class="distance-unit">km</span>
+        </div>
+        <div class="location-pill my-pill">
+          <i class="fa-solid fa-house-chimney-heart"></i> Anh đang ở: <span id="my-city">Hà Nội</span>
+        </div>
+      </div>
+      <p class="distance-quote">"Khoảng cách không thể chia cắt hai trái tim cùng nhịp đập 💖"</p>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="card map-card">
+      <div class="card-header">
+        <i class="fa-solid fa-map-location-dot icon-romantic"></i>
+        <h3>Bản Đồ Tình Yêu Của Chúng Mình 🗺️</h3>
+      </div>
+      <div id="map" class="map-container"></div>
+    </section>
+
+    <!-- Detailed Telemetry Card -->
+    <section class="card telemetry-card">
+      <div class="card-header">
+        <i class="fa-solid fa-location-crosshairs icon-romantic"></i>
+        <h3>Chi Tiết Vị Trí Hiện Tại 📍</h3>
+      </div>
+      
+      <div class="telemetry-grid">
+        <div class="telemetry-item">
+          <i class="fa-solid fa-map-pin"></i>
+          <div>
+            <label>Địa chỉ:</label>
+            <span id="val-address">Đang tải địa chỉ...</span>
+          </div>
+        </div>
+
+        <div class="telemetry-item">
+          <i class="fa-solid fa-compass"></i>
+          <div>
+            <label>Tọa độ GPS:</label>
+            <span id="val-coords">0.0000, 0.0000</span>
+          </div>
+        </div>
+
+        <div class="telemetry-item">
+          <i class="fa-solid fa-bullseye"></i>
+          <div>
+            <label>Độ chính xác:</label>
+            <span id="val-accuracy">±0 meters</span>
+          </div>
+        </div>
+
+        <div class="telemetry-item">
+          <i class="fa-solid fa-clock"></i>
+          <div>
+            <label>Thời gian:</label>
+            <span id="val-time">--:--:--</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button id="btn-copy" class="btn-cute btn-outline-cute">
+          <i class="fa-solid fa-copy"></i> Sao Chép Tọa Độ
+        </button>
+        <button id="btn-share" class="btn-cute btn-outline-cute">
+          <i class="fa-solid fa-share-nodes"></i> Chia Sẻ Bản Đồ
+        </button>
+      </div>
+    </section>
+
+    <footer class="romantic-footer">
+      Made with 💖 for my love • <span id="current-year">2026</span>
+    </footer>
+
+  </main>
+
+  <!-- Leaflet JS for Maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Canvas Confetti for Celebration Effect -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <script src="app.js"></script>
+</body>
+</html>

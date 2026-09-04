@@ -1,0 +1,454 @@
+:root {
+  --primary-pink: #ff4e72;
+  --secondary-pink: #ff758c;
+  --soft-pink: #ffe6eb;
+  --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(255, 255, 255, 0.6);
+  --text-main: #332233;
+  --text-muted: #665566;
+  --shadow-cute: 0 12px 32px rgba(255, 117, 140, 0.25);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+}
+
+/* Background Floating Hearts */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart-particle {
+  position: absolute;
+  color: rgba(255, 78, 114, 0.35);
+  font-size: 20px;
+  animation: floatHeart 6s linear infinite;
+  bottom: -40px;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-105vh) rotate(360deg) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* 🔒 LOCK SCREEN */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 240, 245, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px;
+}
+
+.lock-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-cute);
+  width: 100%;
+  max-width: 480px;
+  padding: 40px 30px;
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.gift-box-icon {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  background: #ffe6eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-pink);
+  font-size: 42px;
+  box-shadow: 0 8px 20px rgba(255, 78, 114, 0.2);
+}
+
+.pulse-anim {
+  animation: pulseGift 2s infinite;
+}
+
+@keyframes pulseGift {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.heart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--primary-pink);
+  color: white;
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.lock-card h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 32px;
+  color: var(--primary-pink);
+  margin-bottom: 12px;
+}
+
+.lock-subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.security-note {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #998899;
+}
+
+/* Cute Buttons */
+.btn-cute {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.btn-primary-cute {
+  background: linear-gradient(45deg, var(--primary-pink), var(--secondary-pink));
+  color: white;
+  box-shadow: 0 8px 20px rgba(255, 78, 114, 0.4);
+}
+
+.btn-primary-cute:hover {
+  transform: translateY(-3deg) scale(1.02);
+  box-shadow: 0 12px 24px rgba(255, 78, 114, 0.5);
+}
+
+.btn-secondary-cute {
+  background: #ff5252;
+  color: white;
+  box-shadow: 0 6px 16px rgba(255, 82, 82, 0.3);
+}
+
+.btn-outline-cute {
+  background: white;
+  color: var(--primary-pink);
+  border: 2px solid var(--secondary-pink);
+  box-shadow: 0 4px 12px rgba(255, 117, 140, 0.15);
+}
+
+.btn-outline-cute:hover {
+  background: var(--soft-pink);
+}
+
+/* Denied Warning Box */
+.denied-warning {
+  margin-top: 24px;
+  background: #fff0f0;
+  border: 2px dashed #ff4d4d;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  color: #cc0000;
+  text-align: center;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.denied-warning p {
+  font-size: 14px;
+  margin: 8px 0 14px;
+  line-height: 1.5;
+}
+
+/* 💖 SECRET UNLOCKED CONTENT */
+.secret-content {
+  position: relative;
+  z-index: 10;
+  max-width: 720px;
+  margin: 30px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Romantic Header */
+.romantic-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.header-badge {
+  display: inline-block;
+  background: white;
+  color: var(--primary-pink);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 78, 114, 0.2);
+  margin-bottom: 12px;
+}
+
+.romantic-header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 46px;
+  color: #ff2a55;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+}
+
+.header-subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+/* Cards General */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-cute);
+  padding: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  border-bottom: 2px dashed #ffd0db;
+  padding-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  color: var(--primary-pink);
+}
+
+.icon-romantic {
+  font-size: 22px;
+  color: var(--primary-pink);
+}
+
+/* Typewriter Letter */
+.letter-body {
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+  line-height: 1.7;
+  color: #4a2e56;
+  min-height: 120px;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 0.7s infinite;
+  color: var(--primary-pink);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Distance Banner */
+.distance-card {
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #fff0f3 100%);
+}
+
+.distance-badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.location-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.lover-pill {
+  background: #ffe6eb;
+  color: #ff2a55;
+}
+
+.my-pill {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.distance-value-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+#distance-number {
+  font-size: 54px;
+  font-weight: 800;
+  color: var(--primary-pink);
+  line-height: 1;
+}
+
+.distance-unit {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.distance-quote {
+  font-style: italic;
+  color: #775577;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Map Styling */
+.map-container {
+  height: 320px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 2px solid white;
+}
+
+/* Telemetry Grid */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 540px) {
+  .telemetry-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid #ffe0e6;
+}
+
+.telemetry-item i {
+  font-size: 20px;
+  color: var(--primary-pink);
+}
+
+.telemetry-item label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #887788;
+  font-weight: 700;
+}
+
+.telemetry-item span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.action-buttons .btn-cute {
+  flex: 1;
+}
+
+/* Footer */
+.romantic-footer {
+  text-align: center;
+  color: #886688;
+  font-size: 13px;
+  margin-top: 30px;
+}
